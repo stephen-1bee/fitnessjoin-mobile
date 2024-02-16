@@ -1,17 +1,26 @@
 import React, { useState } from "react";
-import { View, Text, Modal, ActivityIndicator } from "react-native";
+import {
+  View,
+  Text,
+  Modal,
+  ActivityIndicator,
+  SafeAreaView,
+} from "react-native";
 import tw from "twrnc";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import AntDesign from "react-native-vector-icons/AntDesign";
+import SessionStorage from "react-native-session-storage";
 
 const UserScreen = () => {
-    const [isModalVisible, setModalVisible] = useState(false);
-    
+  const [isModalVisible, setModalVisible] = useState(false);
+
+  const userid = SessionStorage.getItem("userId");
 
   return (
-    <ScrollView style={tw`flex-1 bg-white`}>
-      <View style={tw`flex-1 bg-white`}>
+    <SafeAreaView style={tw`flex-1 bg-white`}>
+      <Text>userid {userid}</Text>
+      <View style={tw`flex-1 bg-white `}>
         <View style={tw`flex-row items-center justify-between`}>
           <View>
             <Text style={tw`text-gray-700 text-[14px] mt-2 ml-2 p-2`}>
@@ -136,7 +145,7 @@ const UserScreen = () => {
           </TouchableOpacity>
         </Modal>
       </View>
-    </ScrollView>
+    </SafeAreaView>
   );
 };
 

@@ -8,12 +8,18 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
+import SessionStorage from "react-native-session-storage";
 import tw from "twrnc";
 
 const LoginScreen = ({ navigation }) => {
+  const [userId, setuserId] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setloading] = useState(false);
+
+  SessionStorage.setItem("userId", userId);
+
+  console.log(`userid: ${userId}`);
 
   const handleLogin = async ({ navigation }) => {
     setloading(true);
@@ -42,6 +48,7 @@ const LoginScreen = ({ navigation }) => {
           Alert.alert("Warning", "Fields cannot be empty");
           setloading(false);
         } else if (result.msg === "Login successful") {
+          setuserId(result.user._id);
           setloading(true);
           Alert.alert("Success", result.msg);
           setloading(false);

@@ -1,15 +1,25 @@
 import React from "react";
-import { View, Text, SafeAreaView, Image } from "react-native";
+import {
+  View,
+  Text,
+  SafeAreaView,
+  Image,
+  StyleSheet,
+  StatusBar,
+  Platform,
+} from "react-native";
 import tw from "twrnc";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import img2 from "../assets/img2.png";
 
 const HomeScreen = ({ navigation }) => {
   return (
-    <SafeAreaView style={tw`flex-1`}>
+    <SafeAreaView style={style.top}>
       <View style={tw`items-center justify-center flex-1 mt-10`}>
-        <Image source={img2} style={tw`w-[300px] h-[350px]`} />
+        <Image
+          source={require("../assets/img3.png")}
+          style={tw`w-[300px] h-[350px]`}
+        />
       </View>
       <View style={tw`flex-1 items-center justify-center`}>
         <View style={tw`text-center mb-24 mt-24 `}>
@@ -22,7 +32,7 @@ const HomeScreen = ({ navigation }) => {
         </View>
         <TouchableOpacity
           onPress={() => navigation.navigate("FitnessCenters")}
-          style={tw`bg-green-700 px-5 py-5 rounded-lg `}
+          style={tw`bg-[#08A88A] px-5 py-5 rounded-lg `}
         >
           <View style={tw`items-center flex-row justify-between gap-24`}>
             <Text style={tw` text-white text-lg`}>Get Started </Text>
@@ -32,7 +42,7 @@ const HomeScreen = ({ navigation }) => {
         <View style={tw`flex-row mt-5 gap-1 items-center justify-center mb-24`}>
           <Text style={tw`text-gray-700 `}>Already have an account? </Text>
           <TouchableOpacity onPress={() => navigation.navigate("login")}>
-            <Text style={tw` text-[16px] font-bold`}>Login</Text>
+            <Text style={tw` text-[16px] font-bold text-[#08A88A]`}>Login</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -41,3 +51,10 @@ const HomeScreen = ({ navigation }) => {
 };
 
 export default HomeScreen;
+
+const style = StyleSheet.create({
+  top: {
+    flex: 1,
+    paddingTop: Platform.OS === "android " ? StatusBar.currentHeight : null,
+  },
+});
