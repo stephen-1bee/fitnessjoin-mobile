@@ -91,7 +91,12 @@ const ViewFitnessDetail = ({ navigation }) => {
           <Text style={tw`text-white text-[16px]`}>Register</Text>
         </TouchableOpacity>
       </View>
-
+      <TouchableOpacity
+        onPress={() => navigation.navigate("FitnessCenters")}
+        style={tw`items-center justify-center bg-black border border-black rounded-full w-10 h-10 absolute top-10 left-4`}
+      >
+        <Feather name="arrow-left" size={20} color={"white"} />
+      </TouchableOpacity>
       <StatusBar style />
     </View>
   );

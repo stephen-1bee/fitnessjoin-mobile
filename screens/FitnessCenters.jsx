@@ -172,7 +172,7 @@ const FitnessCenters = () => {
               <TouchableOpacity onPress={() => handleMove(item._id)}>
                 <View
                   key={item._id}
-                  style={tw`bg-white w-[330px] mt-3 rounded-lg overflow-hidden gap-1 mb-3`}
+                  style={tw`bg-white w-[330px] mt-3 rounded-lg overflow-hidden gap-1 mb-8`}
                 >
                   <Image
                     source={{ uri: item.photo }}
@@ -223,6 +223,7 @@ export default FitnessCenters;
 const style = StyleSheet.create({
   nav: {
     flex: 1,
+    marginBottom: "100px",
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 40,
   },
 });
