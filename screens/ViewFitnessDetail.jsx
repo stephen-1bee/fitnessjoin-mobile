@@ -14,6 +14,7 @@ import img1 from "../assets/img1.jpg";
 import SessionStorage from "react-native-session-storage";
 import { Feather } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
+import StarRating from "react-native-star-rating";
 
 const ViewFitnessDetail = ({ navigation }) => {
   const [center, setfitnessCenter] = useState([]);
@@ -71,6 +72,15 @@ const ViewFitnessDetail = ({ navigation }) => {
           <Feather name="phone" size={20} />
           {center ? center[0]?.phone : "no center phone"}
         </Text>
+        <View style={tw`items-start`}>
+          <StarRating
+            starSize={20}
+            rating={center[0]?.rating}
+            emptyStarColor="black"
+            fullStarColor="gold"
+            containerStyle={{ gap: 8 }}
+          />
+        </View>
         <View style={tw` w-[100px] rounded mt-2 rounded `}>
           {center[0]?.isOpened ? (
             <View>
@@ -82,7 +92,6 @@ const ViewFitnessDetail = ({ navigation }) => {
             </View>
           )}
         </View>
-
         <TouchableOpacity
           onPress={() => navigation.navigate("signUp")}
           title="Register"
@@ -110,14 +119,3 @@ const style = StyleSheet.create({
     paddingTop: Platform.OS === "android" ? 0 : 0,
   },
 });
-
-// <Image source={img1} style={tw`w-[350px] h-[200px] rounded-lg`} />
-//       <Text style={tw`mt-10`}>Center id: {centerId}</Text>
-//       <View style={tw` gap-2 justify-center mr-52 mt-20`}>
-//         <Text style={tw`font-bold text-2xl`}>Welcome</Text>
-//         <Text>Vvu Fitness Center</Text>
-//         <Text>Description</Text>
-//         <Text>Email</Text>
-//         <Text>Location</Text>
-//         <Text>Opened</Text>
-//         <Text>Rating</Text>

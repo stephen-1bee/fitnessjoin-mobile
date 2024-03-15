@@ -26,7 +26,6 @@ export default function AppNavigator() {
           component={FitnessCenters}
           options={{ headerShown: false }}
         />
-
         <Stack.Screen
           name="login"
           component={LoginScreen}

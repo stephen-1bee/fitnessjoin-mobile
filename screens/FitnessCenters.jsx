@@ -14,11 +14,13 @@ import {
   Image,
   ActivityIndicator,
 } from "react-native";
+import StarRating from "react-native-star-rating";
 import { Feather } from "@expo/vector-icons";
 import React, { useState, useEffect, useCallback } from "react";
 import tw from "twrnc";
 import { useNavigation } from "@react-navigation/native";
 import SessionStorage from "react-native-session-storage";
+import { SliderBox } from "react-native-image-slider-box";
 
 const FitnessCenters = () => {
   const navigator = useNavigation();
@@ -26,6 +28,11 @@ const FitnessCenters = () => {
   const [allfitness, setAllfitness] = useState([]);
   const [loading, setloading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
+
+  const image = [
+    "https://images.pexels.com/photos/20224156/pexels-photo-20224156/free-photo-of-smiling-women-lying-on-grass.jpeg?auto=compress&cs=tinysrgb&w=1200&lazy=load",
+    "https://images.pexels.com/photos/20267706/pexels-photo-20267706/free-photo-of-a-couple-is-sitting-on-top-of-a-bed-in-a-cabin.jpeg?auto=compress&cs=tinysrgb&w=1200&lazy=load",
+  ];
 
   const getFitnessCenters = async () => {
     try {
@@ -85,7 +92,6 @@ const FitnessCenters = () => {
       SessionStorage.setItem("centerId", center_id);
     }
     navigator.navigate("ViewFitnessDetail");
-    // alert(center_id);
   };
 
   const onRefresh = useCallback(() => {
@@ -115,8 +121,9 @@ const FitnessCenters = () => {
           inputMode="text"
         />
       </View>
+
       {/* recommended */}
-      <View style={tw`px-6 mt-5`}>
+      <View style={tw`px-6 mt-5 overflow-hidden`}>
         <Text style={tw` font-semibold text-xl text-center`}>
           Recommended Fitness Center
         </Text>
@@ -131,10 +138,10 @@ const FitnessCenters = () => {
               <TouchableOpacity
                 onPress={() => handleMove(item._id)}
                 key={item._id}
-                style={tw`h-[230px] w-[220px] rounded-lg shadow-lg mt-3 overflow-hidden`}
+                style={tw`h-[230px] w-[200px] rounded-lg mt-3 overflow-hidden`}
               >
                 <ImageBackground
-                  style={tw`w-full h-full rounded-lg`}
+                  style={tw`w-full h-full rounded-lg `}
                   source={{ uri: item.photo }}
                   resizeMode="cover"
                 >
@@ -151,7 +158,13 @@ const FitnessCenters = () => {
                     <Text style={tw`text-white`}>
                       <Feather name="map-pin" size={20} /> {item.location}
                     </Text>
-                    <Text style={tw`text-white`}> {item.rating}</Text>
+                    <StarRating
+                      rating={item.rating}
+                      maxStars={5}
+                      emptyStarColor="white"
+                      fullStarColor="gold"
+                      starSize={20}
+                    />
                   </View>
                 </ImageBackground>
               </TouchableOpacity>
@@ -159,6 +172,7 @@ const FitnessCenters = () => {
           />
         )}
       </View>
+
       {/* All fitness centers */}
       <View style={tw`px-6 mt-5 items-center justify-center`}>
         <Text style={tw` font-semibold text-lg`}>All Fitness Centers</Text>
@@ -167,12 +181,12 @@ const FitnessCenters = () => {
         ) : (
           <FlatList
             data={allfitness}
-            showsVerticalScrollIndicator={false}
+            // showsVerticalScrollIndicator={false}
             renderItem={({ item }) => (
               <TouchableOpacity onPress={() => handleMove(item._id)}>
                 <View
                   key={item._id}
-                  style={tw`bg-white w-[330px] mt-3 rounded-lg overflow-hidden gap-1 mb-8`}
+                  style={tw`bg-white w-[330px] mt-3 rounded-lg overflow-hidden gap-2 mb-5`}
                 >
                   <Image
                     source={{ uri: item.photo }}
@@ -191,8 +205,16 @@ const FitnessCenters = () => {
                   <Text style={tw`px-5`}>
                     <Feather name="map-pin" size={20} /> {item.location}
                   </Text>
-                  <Text style={tw`px-5`}> {item.rating}</Text>
 
+                  <View style={tw`px-5 w-[200px]`}>
+                    <StarRating
+                      maxStars={5}
+                      rating={item.rating}
+                      fullStarColor={"gold"}
+                      emptyStarColor={"black"}
+                      starSize={20}
+                    />
+                  </View>
                   <View style={tw` `}>
                     {item.isOpened ? (
                       <View>
