@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"
 import {
   View,
   Text,
@@ -7,10 +7,11 @@ import {
   StyleSheet,
   StatusBar,
   Platform,
-} from "react-native";
-import tw from "twrnc";
-import AntDesign from "react-native-vector-icons/AntDesign";
-import { TouchableOpacity } from "react-native-gesture-handler";
+} from "react-native"
+import tw from "twrnc"
+import { useFonts } from "expr-font"
+
+import { TouchableOpacity } from "react-native-gesture-handler"
 
 const HomeScreen = ({ navigation }) => {
   return (
@@ -23,7 +24,9 @@ const HomeScreen = ({ navigation }) => {
       </View>
       <View style={tw`flex-1 items-center justify-center`}>
         <View style={tw`text-center mb-24 mt-24 `}>
-          <Text style={tw`text-2xl text-center font-bold `}>Welcome</Text>
+          <Text style={tw`text-3xl text-center mt-8 font-semibold`}>
+            Welcome{" "}
+          </Text>
           <Text
             style={tw`text-[16px] text-gray-700 text-center text-center mt-1 `}
           >
@@ -32,11 +35,10 @@ const HomeScreen = ({ navigation }) => {
         </View>
         <TouchableOpacity
           onPress={() => navigation.navigate("FitnessCenters")}
-          style={tw`bg-[#08A88A] px-5 py-5 rounded-lg `}
+          style={tw`bg-[#08A88A] w-[200px] items-center justify-center py-5 rounded-full `}
         >
           <View style={tw`items-center flex-row justify-between gap-24`}>
-            <Text style={tw` text-white text-lg`}>Get Started </Text>
-            <AntDesign name="caretright" color="white" size={10} />
+            <Text style={tw` text-white  text-center`}>Get Started </Text>
           </View>
         </TouchableOpacity>
         <View style={tw`flex-row mt-5 gap-1 items-center justify-center mb-24`}>
@@ -47,14 +49,14 @@ const HomeScreen = ({ navigation }) => {
         </View>
       </View>
     </SafeAreaView>
-  );
-};
+  )
+}
 
-export default HomeScreen;
+export default HomeScreen
 
 const style = StyleSheet.create({
   top: {
     flex: 1,
     paddingTop: Platform.OS === "android " ? StatusBar.currentHeight : null,
   },
-});
+})

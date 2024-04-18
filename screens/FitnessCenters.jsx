@@ -13,91 +13,88 @@ import {
   RefreshControl,
   Image,
   ActivityIndicator,
-} from "react-native";
-import StarRating from "react-native-star-rating";
-import { Feather } from "@expo/vector-icons";
-import React, { useState, useEffect, useCallback } from "react";
-import tw from "twrnc";
-import { useNavigation } from "@react-navigation/native";
-import SessionStorage from "react-native-session-storage";
-import { SliderBox } from "react-native-image-slider-box";
+} from "react-native"
+import StarRating from "react-native-star-rating"
+import { Feather } from "@expo/vector-icons"
+import React, { useState, useEffect, useCallback } from "react"
+import tw from "twrnc"
+import { useNavigation } from "@react-navigation/native"
+import SessionStorage from "react-native-session-storage"
+import { SliderBox } from "react-native-image-slider-box"
 
 const FitnessCenters = () => {
-  const navigator = useNavigation();
-  const [recommended, setRecommended] = useState([]);
-  const [allfitness, setAllfitness] = useState([]);
-  const [loading, setloading] = useState(false);
-  const [refreshing, setRefreshing] = useState(false);
+  const navigator = useNavigation()
+  const [recommended, setRecommended] = useState([])
+  const [allfitness, setAllfitness] = useState([])
+  const [loading, setloading] = useState(false)
+  const [refreshing, setRefreshing] = useState(false)
 
   const image = [
     "https://images.pexels.com/photos/20224156/pexels-photo-20224156/free-photo-of-smiling-women-lying-on-grass.jpeg?auto=compress&cs=tinysrgb&w=1200&lazy=load",
     "https://images.pexels.com/photos/20267706/pexels-photo-20267706/free-photo-of-a-couple-is-sitting-on-top-of-a-bed-in-a-cabin.jpeg?auto=compress&cs=tinysrgb&w=1200&lazy=load",
-  ];
+  ]
 
   const getFitnessCenters = async () => {
     try {
-      setloading(true);
+      setloading(true)
       const requestOptions = {
         method: "GET",
         redirect: "follow",
-      };
+      }
 
-      await fetch(
-        "https://fitness-join-api-xe62.onrender.com/api/v1/admins/all",
-        requestOptions
-      )
+      await fetch("http://localhost:1000/api/v1/admins/all", requestOptions)
         .then((response) => response.json())
         .then((result) => {
-          setAllfitness(result.fitness_centers);
-          console.log(result.fitness_centers);
-          setloading(false);
+          setAllfitness(result.fitness_centers)
+          console.log(result.fitness_centers)
+          setloading(false)
         })
-        .catch((error) => console.error(error));
+        .catch((error) => console.error(error))
     } catch (err) {
-      console.log(err);
+      console.log(err)
     }
-  };
+  }
 
   const getRecommendedCenters = async () => {
     try {
-      setloading(true);
+      setloading(true)
       const requestOptions = {
         method: "GET",
         redirect: "follow",
-      };
+      }
 
       await fetch(
-        "https://fitness-join-api-xe62.onrender.com/api/v1/admins/recomended",
+        "http://localhost:1000/api/v1/admins/recomended",
         requestOptions
       )
         .then((response) => response.json())
         .then((result) => {
-          setRecommended(result.recomended);
-          console.log(result.recomended);
-          setloading(false);
+          setRecommended(result.recomended)
+          console.log(result.recomended)
+          setloading(false)
         })
-        .catch((error) => console.error(error));
+        .catch((error) => console.error(error))
     } catch (err) {
-      console.log(err);
+      console.log(err)
     }
-  };
+  }
 
   useEffect(() => {
-    getRecommendedCenters();
-    getFitnessCenters();
-  }, []);
+    getRecommendedCenters()
+    getFitnessCenters()
+  }, [])
 
   const handleMove = (center_id) => {
     if (typeof window !== "undefined") {
-      SessionStorage.setItem("centerId", center_id);
+      SessionStorage.setItem("centerId", center_id)
     }
-    navigator.navigate("ViewFitnessDetail");
-  };
+    navigator.navigate("ViewFitnessDetail")
+  }
 
   const onRefresh = useCallback(() => {
-    setRefreshing(true);
-    setTimeout(() => setRefreshing(false), 1000);
-  }, []);
+    setRefreshing(true)
+    setTimeout(() => setRefreshing(false), 1000)
+  }, [])
 
   return (
     <ScrollView
@@ -138,11 +135,11 @@ const FitnessCenters = () => {
               <TouchableOpacity
                 onPress={() => handleMove(item._id)}
                 key={item._id}
-                style={tw`h-[230px] w-[200px] rounded-lg mt-3 overflow-hidden`}
+                style={tw`h-[230px] w-[350px] rounded-lg mt-3 overflow-hidden shadow`}
               >
                 <ImageBackground
                   style={tw`w-full h-full rounded-lg `}
-                  source={{ uri: item.photo }}
+                  source={{ uri: `http://localhost:1000/${item.photo}` }}
                   resizeMode="cover"
                 >
                   <View style={tw`px-4 mt-8 gap-2`}>
@@ -189,7 +186,7 @@ const FitnessCenters = () => {
                   style={tw`bg-white w-[330px] mt-3 rounded-lg overflow-hidden gap-2 mb-5`}
                 >
                   <Image
-                    source={{ uri: item.photo }}
+                    source={{ uri: `http://localhost:1000/${item.photo}` }}
                     style={tw`h-[330px]`}
                     resizeMode="cover"
                   />
@@ -237,15 +234,15 @@ const FitnessCenters = () => {
         )}
       </View>
     </ScrollView>
-  );
-};
+  )
+}
 
-export default FitnessCenters;
+export default FitnessCenters
 
 const style = StyleSheet.create({
   nav: {
     flex: 1,
     marginBottom: "100px",
-    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 40,
+    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 70,
   },
-});
+})
